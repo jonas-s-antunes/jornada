@@ -57,4 +57,10 @@ export const useTreinamentosStore =
         registro
       )
     },
+
+    async deletarTreinamento(id: string) {
+      await treinamentoRepositorio.deletarTreinamento(id)
+
+      await get().carregarTreinamentos()
+    },
   }))

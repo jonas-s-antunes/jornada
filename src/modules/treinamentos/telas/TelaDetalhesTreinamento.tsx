@@ -35,6 +35,8 @@ import {
   calcularStatusVencimento,
 } from '../servicos/calcular-status-vencimento'
 
+import { confirmarDelecao } from '@shared/utilitarios/confirmar-delecao'
+
 export function TelaDetalhesTreinamento() {
   const route =
     useRoute<RouteProp<any>>()
@@ -88,8 +90,8 @@ export function TelaDetalhesTreinamento() {
   const status =
     ultimaRealizacao
       ? calcularStatusVencimento(
-          ultimaRealizacao.vence_em
-        )
+        ultimaRealizacao.vence_em
+      )
       : null
 
   return (
@@ -139,12 +141,12 @@ export function TelaDetalhesTreinamento() {
               style={[
                 styles.status,
                 status?.tipo ===
-                  'vencido' &&
-                  styles.statusVencido,
+                'vencido' &&
+                styles.statusVencido,
 
                 status?.tipo ===
-                  'proximo' &&
-                  styles.statusProximo,
+                'proximo' &&
+                styles.statusProximo,
               ]}
             >
               <Text
@@ -179,6 +181,28 @@ export function TelaDetalhesTreinamento() {
             style={styles.botaoTexto}
           >
             Registrar realização
+          </Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.botaoDeletar}
+          onPress={() =>
+            confirmarDelecao(
+              treinamento?.titulo ?? '',
+              async () => {
+                if (!treinamento) return
+
+                await treinamentoRepositorio.deletarTreinamento(
+                  treinamento.id
+                )
+
+                navigation.goBack()
+              }
+            )
+          }
+        >
+          <Text style={styles.textoDeletar}>
+            Deletar treinamento
           </Text>
         </Pressable>
       </ScrollView>
@@ -269,6 +293,19 @@ const styles = StyleSheet.create({
     color: '#fff',
 
     fontSize: 16,
+    fontWeight: '700',
+  },
+
+  botaoDeletar: {
+    marginTop: 16,
+    padding: 16,
+    borderRadius: 14,
+    backgroundColor: '#fee2e2',
+    alignItems: 'center',
+  },
+
+  textoDeletar: {
+    color: '#991b1b',
     fontWeight: '700',
   },
 })

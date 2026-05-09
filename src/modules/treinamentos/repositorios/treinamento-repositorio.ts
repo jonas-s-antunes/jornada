@@ -77,7 +77,7 @@ export const treinamentoRepositorio = {
       [treinamentoId]
     )
   },
-  
+
   async buscarPorId(
     treinamentoId: string
   ) {
@@ -105,4 +105,23 @@ export const treinamentoRepositorio = {
       [treinamentoId]
     )
   },
+
+  async deletarTreinamento(id: string) {
+  await banco.runAsync(
+    `DELETE FROM treinamentos WHERE id = ?`,
+    [id]
+  )
+
+  await banco.runAsync(
+    `DELETE FROM registros_treinamentos WHERE treinamento_id = ?`,
+    [id]
+  )
+},
+
+async deletarRealizacao(id: string) {
+  await banco.runAsync(
+    `DELETE FROM registros_treinamentos WHERE id = ?`,
+    [id]
+  )
+},
 }

@@ -72,6 +72,14 @@ export function TelaTreinamentos() {
         renderItem={({ item }) => (
           <CardTreinamento
             treinamento={item}
+            onPress={() =>
+              navigation.navigate(
+                'detalhes-treinamento',
+                {
+                  treinamentoId: item.id,
+                }
+              )
+            }
           />
         )}
         contentContainerStyle={

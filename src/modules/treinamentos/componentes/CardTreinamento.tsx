@@ -1,20 +1,26 @@
 import {
+  Pressable,
   StyleSheet,
   Text,
-  View,
 } from 'react-native'
 
 import { Treinamento } from '../tipos/treinamento'
 
 interface Props {
   treinamento: Treinamento
+
+  onPress?: () => void
 }
 
 export function CardTreinamento({
   treinamento,
+  onPress,
 }: Props) {
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={onPress}
+    >
       <Text style={styles.titulo}>
         {treinamento.titulo}
       </Text>
@@ -32,7 +38,7 @@ export function CardTreinamento({
           {treinamento.descricao}
         </Text>
       ) : null}
-    </View>
+    </Pressable>
   )
 }
 

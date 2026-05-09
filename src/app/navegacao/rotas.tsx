@@ -8,6 +8,9 @@ import { TelaHome } from '@modules/home/telas/TelaHome'
 
 import { TelaTreinamentos } from '@modules/treinamentos/telas/TelaTreinamentos'
 import { TelaNovoTreinamento } from '@modules/treinamentos/telas/TelaNovoTreinamento'
+import { TelaDetalhesTreinamento } from '@modules/treinamentos/telas/TelaDetalhesTreinamento'
+import { TelaRegistrarRealizacao } from '@modules/treinamentos/telas/TelaRegistrarRealizacao'
+
 
 const Stack =
   createNativeStackNavigator()
@@ -38,6 +41,27 @@ export function Rotas() {
           component={TelaNovoTreinamento}
           options={{
             title: 'Novo treinamento',
+          }}
+        />
+
+        <Stack.Screen
+          name="detalhes-treinamento"
+          component={
+            TelaDetalhesTreinamento
+          }
+          options={{
+            title: 'Detalhes',
+          }}
+        />
+
+        <Stack.Screen
+          name="registrar-realizacao"
+          component={
+            TelaRegistrarRealizacao
+          }
+          options={{
+            title:
+              'Registrar realização',
           }}
         />
       </Stack.Navigator>

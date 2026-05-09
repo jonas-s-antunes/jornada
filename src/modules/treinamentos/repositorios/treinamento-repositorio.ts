@@ -77,4 +77,32 @@ export const treinamentoRepositorio = {
       [treinamentoId]
     )
   },
+  
+  async buscarPorId(
+    treinamentoId: string
+  ) {
+    return banco.getFirstAsync<Treinamento>(
+      `
+    SELECT *
+    FROM treinamentos
+    WHERE id = ?
+    `,
+      [treinamentoId]
+    )
+  },
+
+  async buscarUltimaRealizacao(
+    treinamentoId: string
+  ) {
+    return banco.getFirstAsync<RegistroTreinamento>(
+      `
+    SELECT *
+    FROM registros_treinamentos
+    WHERE treinamento_id = ?
+    ORDER BY realizado_em DESC
+    LIMIT 1
+    `,
+      [treinamentoId]
+    )
+  },
 }
